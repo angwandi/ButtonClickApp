@@ -3,37 +3,81 @@ package app.a2ms.buttonclickapp
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 
+private val TAG = "MainActivity"
+
 class MainActivity : AppCompatActivity() {
-    private var userInput: EditText? = null
-    private var button: Button? = null
+
     private var textView: TextView? = null
-    private var numTimesClicked = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d(TAG, "onCreate: called")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        userInput = findViewById(R.id.editText)
-        button = findViewById(R.id.button)
+        val userInput: EditText = findViewById(R.id.editText)
+        val button: Button = findViewById(R.id.button)
         textView = findViewById(R.id.textView)
         textView?.text = ""
         textView?.movementMethod = ScrollingMovementMethod() //works only because we added a scrollbars vertical in xml
+        userInput.text.clear()
 
-        button?.setOnClickListener(object : View.OnClickListener {
+        button.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                numTimesClicked += 1
-                textView?.append("The button got tapped $numTimesClicked time")
-                if (numTimesClicked != 1) {
-                    textView?.append("s\n")
-                } else {
-                    textView?.append("\n")
-                }
+                Log.d(TAG, "onClick : called")
+                textView?.append(userInput.text)
+                textView?.append("\n")
+                userInput.text.clear() //clear editText after button clicked option 1
+                //userInput.setText("") //clear editText after button clicked option 2
             }
         })
     }
+
+    override fun onStart() {
+        Log.d(TAG, "onStart: called")
+
+        super.onStart()
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        Log.d(TAG, "onRestoreInstanceState: called")
+
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
+    override fun onResume() {
+        Log.d(TAG, "onResume: called")
+
+        super.onResume()
+    }
+
+    override fun onPause() {
+        Log.d(TAG, "onPause: called")
+
+        super.onPause()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        Log.d(TAG, "onSaveInstanceState: called")
+
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onStop() {
+        Log.d(TAG, "onStop: called")
+
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        Log.d(TAG, "onDestroy: called")
+
+        super.onDestroy()
+    }
+
 }
